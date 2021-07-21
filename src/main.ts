@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 // vant base style
 import 'vant/lib/style/base.less';
 // ui @vant
-import useUi from '@/components/framework/use-ui'
+import useUi from '@/utils/use-ui'
 // route
 import router from '@/router/index'
 import { key, store } from '@/store'

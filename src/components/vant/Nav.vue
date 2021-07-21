@@ -1,6 +1,7 @@
 <template>
-    <van-tabbar :fixed="true" safe-area-inset-bottom>
+    <van-tabbar :fixed="true" safe-area-inset-bottom v-model="active">
         <van-tabbar-item
+            :name="nav.name"
             v-for="(nav, index) in navList"
             :key="index"
             :class="{ active: nav.isActive }"
@@ -27,34 +28,42 @@ export default defineComponent({
                 {
                     name: 'Home',
                     isActive: false,
-                    path: '/'
+                    path: '/vant/home'
                 },
                 {
-                    name: 'Vant',
+                    name: 'Request',
                     isActive: false,
-                    path: '/vant'
+                    path: '/vant/request'
                 },
                 {
-                    name: 'Axios',
+                    name: 'Vuex',
                     isActive: false,
-                    path: '/axios'
+                    path: '/vant/vuex'
+                },
+                {
+                    name: 'Element',
+                    isActive: false,
+                    path: '/vant/element'
                 }
             ],
             navClick(e: NavItem) {
                 router.push(e.path)
-            }
+            },
+            active: 'Home'
         })
 
         const changeNavActive = (currentPath: string) => {
             reactiveData.navList.forEach((v: NavItem) => {
-                const temp = v
-                temp.isActive = temp.path === currentPath
-                return temp
+                if (v.path === currentPath) {
+                    reactiveData.active = v.name
+                }
             })
         }
 
         watch(
-            () => router.currentRoute.value,
+            () => {
+                return router.currentRoute.value
+            },
             (_n) => {
                 changeNavActive(_n.path)
             }

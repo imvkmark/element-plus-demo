@@ -13,7 +13,7 @@
 - CSS 预编译：[Less](http://lesscss.cn/)
 - HTTP 工具：[Axios](https://axios-http.com/)
 - 单元测试：[vue-test-utils](https://next.vue-test-utils.vuejs.org/) + [jest](https://jestjs.io/) + [vue-jest](https://github.com/vuejs/vue-jest)
-  + [ts-jest](https://kulshekhar.github.io/ts-jest/)
+    + [ts-jest](https://kulshekhar.github.io/ts-jest/)
 
 ## 快速开始
 

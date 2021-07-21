@@ -1,34 +1,20 @@
-import {createRouter, createWebHashHistory, Router, RouteRecordRaw} from 'vue-router'
-import Home from '@/views/Home.vue'
-import Vuex from '@/views/Vuex.vue'
-import Test from '@/views/Test.vue'
-import Vant from '@/views/Vant.vue'
+import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from 'vue-router'
+import Home from '@/views/vant/Home.vue'
+import Vuex from '@/views/vant/Vuex.vue'
+import Request from '@/views/vant/Request.vue'
+import Vant from '@/layouts/Vant.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/',
-        name: 'Home',
-        component: Home
-    },
-    {
-        path: '/vuex',
-        name: 'Vuex',
-        component: Vuex
-    },
-    {
-        path: '/axios',
-        name: 'Axios',
-        component: () => import('@/views/Axios.vue') // 懒加载 Axios 组件
-    },
-    {
-        path: '/test',
-        name: 'Test',
-        component: Test
-    },
-    {
         path: '/vant',
-        name: 'Vant',
-        component: Vant
+        component: Vant,
+        children: [
+            { path: 'home', component: Home },
+            { path: 'vuex', component: Vuex },
+            { path: 'request', component: Request },
+            // 懒加载
+            { path: 'element', component: () => import('@/views/vant/Element.vue') }
+        ]
     }
 ]
 
