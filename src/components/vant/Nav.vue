@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { NavItem } from '@/components/types'
+import { NavItem } from '@/components/vant/types'
 
 export default defineComponent({
     name: 'Nav',
@@ -44,6 +44,11 @@ export default defineComponent({
                     name: 'Element',
                     isActive: false,
                     path: '/vant/element'
+                },
+                {
+                    name: 'Parent',
+                    isActive: false,
+                    path: '/vant/parent'
                 }
             ],
             navClick(e: NavItem) {
