@@ -1,5 +1,7 @@
 # Vite2.x + Vue3.x + TypeScript Starter
 
+该项目存在单元测试
+
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-Airbnb-hotpink.svg)](https://github.com/lin-123/javascript)
 
 ## 技术栈
@@ -17,8 +19,6 @@
 
 ## 快速开始
 
-### 安装依赖
-
 ```bash
 # 安装
 $ yarn
@@ -33,3 +33,8 @@ $ yarn start:<env>
 
 MIT Copyright © 2021 duoli<zhaody901<AT>126.com>
 
+## 版本说明
+
+**1.0**
+
+- 基础模板(基础的示例)
