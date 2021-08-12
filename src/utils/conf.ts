@@ -8,7 +8,7 @@
  */
 
 // 访问接口URL
-export const apiUrl: string = String(import.meta.env.VITE_API_URL);
+export const appUrl: string = String(import.meta.env.VITE_APP_URL);
 
 // App 版本号
 export const appVersion = String(import.meta.env.DEF_APP_VERSION);

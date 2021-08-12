@@ -1,15 +1,5 @@
 <template>
-    <div class="home-container">
-        <p>
-            <img class="logo" alt="Vue logo" src="@/assets/vant.png"/>
-        </p>
-        <p>
-            Vite2.x + Vue3.x + TypeScript + Vant3
-        </p>
-        <p>
-            IconFont @ Vue <br>
-            <icon-font type="icon-measure"/>
-        </p>
+    <div class="x--demo text-center">
         <p>count is: {{ count }}</p>
         <button @click="increment">increment</button>
     </div>
@@ -33,13 +23,3 @@ export default defineComponent({
     }
 })
 </script>
-
-<style scoped lang="less">
-.home-container {
-    text-align: center;
-    padding-top: 20px;
-    .logo {
-        width: 20%;
-    }
-}
-</style>

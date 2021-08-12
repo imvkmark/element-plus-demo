@@ -33,7 +33,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 .vant--vuex {
     text-align: center;
 }

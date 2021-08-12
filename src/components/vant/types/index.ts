@@ -1,5 +1,5 @@
 export interface NavItem {
-    path: string
+    title: string
     name: string
     isActive: boolean
 }

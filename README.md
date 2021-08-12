@@ -1,8 +1,4 @@
-# Vite2.x + Vue3.x + TypeScript Starter
-
-该项目存在单元测试
-
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-Airbnb-hotpink.svg)](https://github.com/lin-123/javascript)
+# Vite2.x + Vue3.x 模版和示例
 
 ## 技术栈
 
@@ -14,14 +10,15 @@
 - UI 框架：[Vant 3.x](https://vant-contrib.gitee.io/vant/v3/#/zh-CN/home)
 - CSS 预编译：[Less](http://lesscss.cn/)
 - HTTP 工具：[Axios](https://axios-http.com/)
-- 单元测试：[vue-test-utils](https://next.vue-test-utils.vuejs.org/) + [jest](https://jestjs.io/) + [vue-jest](https://github.com/vuejs/vue-jest)
-    + [ts-jest](https://kulshekhar.github.io/ts-jest/)
 
 ## 快速开始
 
 ```bash
 # 安装
 $ yarn
+
+# 复制环境
+$ cp ./config/.env.example .env
 
 # 启动
 $ yarn start
@@ -38,3 +35,8 @@ MIT Copyright © 2021 duoli<zhaody901<AT>126.com>
 **1.0**
 
 - 基础模板(基础的示例)
+
+**1.1**
+
+- 删除单元测试
+- 加入示例

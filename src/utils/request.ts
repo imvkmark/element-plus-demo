@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { apiUrl, appVersion, storageKey } from '@/utils/conf';
+import { appUrl, appVersion, storageKey } from '@/utils/conf';
 import { localStore } from '@/utils/utils';
 import { forEach, get, keys } from 'lodash-es';
 import { Toast } from 'vant';
@@ -10,7 +10,7 @@ mockAll();
 
 // axios instance, 根据 MOCK 来设置 URL
 const instance: AxiosInstance = axios.create({
-    baseURL: Boolean(import.meta.env.VITE_MOCK) ? '' : apiUrl,
+    baseURL: Boolean(import.meta.env.VITE_MOCK) ? '' : appUrl,
     timeout: 10000 // 请求超时 20s
 });
 

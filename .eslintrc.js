@@ -5,9 +5,7 @@ module.exports = {
         node: true
     },
     extends: [
-        'plugin:vue/essential',
-        'plugin:prettier/recommended',
-        'plugin:jest/recommended'
+        'plugin:vue/essential'
     ],
     parserOptions: {
         ecmaVersion: 12,
@@ -21,16 +19,6 @@ module.exports = {
         'import/no-absolute-path': 'off',
         'import/no-extraneous-dependencies': 'off',
         'vue/no-multiple-template-root': 'off',
-        'prettier/prettier': [
-            'error',
-            {
-                useTabs: false,
-                tabWidth: 4,
-                singleQuote: true,
-                semi: false,
-                trailingComma: 'all'
-            }
-        ],
         'no-param-reassign': [
             'error',
             {

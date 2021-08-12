@@ -1,6 +1,6 @@
 import { forEach } from 'lodash-es'
 import { MD5 } from 'crypto-js';
-import { apiUrl, appVersion } from '@/utils/conf';
+import { appUrl, appVersion } from '@/utils/conf';
 import { domain, localStore as _localStore } from '@popjs/util';
 
 /**
@@ -67,5 +67,6 @@ export const sessionStore = (key: any, val: any) => {
  * @returns {*}
  */
 export const hashKey = () => {
-    return MD5(domain(apiUrl) + appVersion).toString();
+    console.log(domain(appUrl ? appUrl : ''));
+    return MD5(domain(appUrl ? appUrl : '') + appVersion).toString();
 };

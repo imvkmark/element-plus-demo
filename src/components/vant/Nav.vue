@@ -7,7 +7,7 @@
             :class="{ active: nav.isActive }"
             @click="navClick(nav)"
         >
-            {{ nav.name }}
+            {{ nav.title }}
         </van-tabbar-item>
     </van-tabbar>
 </template>
@@ -26,40 +26,42 @@ export default defineComponent({
         const reactiveData = reactive({
             navList: [
                 {
-                    name: 'Home',
-                    isActive: false,
-                    path: '/vant/home'
+                    title: 'Readme',
+                    name: 'home.readme',
+                    isActive: false
                 },
                 {
-                    name: 'Request',
-                    isActive: false,
-                    path: '/vant/request'
+                    title: 'Css',
+                    name: 'css.home',
+                    isActive: false
                 },
                 {
-                    name: 'Vuex',
-                    isActive: false,
-                    path: '/vant/vuex'
+                    title: 'Vue',
+                    name: 'vue.home',
+                    isActive: false
                 },
                 {
-                    name: 'Element',
-                    isActive: false,
-                    path: '/vant/element'
+                    title: 'Misc',
+                    name: 'misc.home',
+                    isActive: false
                 },
                 {
-                    name: 'Parent',
-                    isActive: false,
-                    path: '/vant/parent'
+                    title: 'Vant',
+                    name: 'vant.home',
+                    isActive: false
                 }
             ],
             navClick(e: NavItem) {
-                router.push(e.path)
+                router.push({
+                    name: e.name
+                })
             },
-            active: 'Home'
+            active: 'home.readme'
         })
 
-        const changeNavActive = (currentPath: string) => {
+        const changeNavActive = (name: any) => {
             reactiveData.navList.forEach((v: NavItem) => {
-                if (v.path === currentPath) {
+                if (v.name === name) {
                     reactiveData.active = v.name
                 }
             })
@@ -76,7 +78,7 @@ export default defineComponent({
 
         onMounted(() => {
             router.isReady().then(() => {
-                changeNavActive(router.currentRoute.value.path)
+                changeNavActive(router.currentRoute.value.name)
             })
         })
 
