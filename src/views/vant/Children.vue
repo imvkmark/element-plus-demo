@@ -11,7 +11,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import arrowLeft from '@/assets/components/arrow-left.png';
 
 export default defineComponent({
     name: 'Children',
@@ -19,11 +18,6 @@ export default defineComponent({
         show: {
             type: Boolean,
             required: true
-        }
-    },
-    data: function () {
-        return {
-            arrowLeft
         }
     },
     methods: {

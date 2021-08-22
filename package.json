@@ -8,6 +8,7 @@
         "start": "vite",
         "start:local": "vite --mode=self",
         "build": "vite build",
+        "build:local": "vite build --mode=self",
         "build-tsc": "vue-tsc --noEmit && vite build",
         "serve": "vite preview",
         "format": "prettier --write ./src",

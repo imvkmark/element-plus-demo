@@ -30,8 +30,10 @@ export default defineConfig(({ mode }) => {
             }
         },
         build: {
-            outDir: `./build/${mode}`
+            // outDir: `./build/${mode}`
+            outDir: `./build/vue3`
         },
+        base: '/vue3/',
         define: {
             'import.meta.env.DEF_APP_VERSION': JSON.stringify(pkgJson.version)
         },

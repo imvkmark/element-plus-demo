@@ -10,4 +10,6 @@ import App from './App.vue'
 
 
 const app = createApp(App)
-useUi(app).use(router).use(store, key).mount('#app')
+useUi(app)
+    .use(router)
+    .use(store, key).mount('#app')

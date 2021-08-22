@@ -12,6 +12,7 @@ const routes: Array<RouteRecordRaw> = [
             { path: 'vue', component: () => import('@/views/vue/Vue.vue'), name: 'vue.home' },
             { path: 'misc', component: () => import('@/views/misc/Misc.vue'), name: 'misc.home' },
             { path: 'css', component: () => import('@/views/css/Css.vue'), name: 'css.home' },
+            { path: 'js', component: () => import('@/views/js/Js.vue'), name: 'js.home' },
             { path: 'vant', component: () => import('@/views/vant/Vant.vue'), name: 'vant.home' }
         ]
     },
@@ -35,8 +36,15 @@ const routes: Array<RouteRecordRaw> = [
         path: '/css',
         component: Plain,
         children: [
+            // { path: 'scroll', component: () => import('@/views/css/Scroll.vue'), name: 'css.scroll' }
+        ]
+    },
+    {
+        path: '/js',
+        component: Plain,
+        children: [
 
-            { path: 'scroll', component: () => import('@/views/css/Scroll.vue'), name: 'css.scroll' }
+            { path: 'scroll', component: () => import('@/views/js/Scroll.vue'), name: 'js.scroll' }
         ]
     },
     {

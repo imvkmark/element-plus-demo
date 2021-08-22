@@ -6,13 +6,32 @@ html, body {
 	color: @text-color;
 }
 
-.x--plain {
-	margin-top: 44px;
+.x--navbar {
+	height: 44px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 15px;
+	box-sizing: border-box;
+	border-bottom: 1px solid #EEE;
 }
 
 .x--list {
+	height: calc(100vh - 44px);
+	scroll-behavior: smooth;
+	font-size: 14px;
+	overflow: auto;
+	position: relative;
 	.list-sticky {
 		position: sticky;
+	}
+	.list-tag {
+		position: fixed;
+		top: 58px;
+		right: 14px;
+		background: rgba(48, 192, 153, .6);
+		border-radius: 5px;
+		padding: 14px;
 	}
 	h3 {
 		margin: 0;
@@ -39,5 +58,25 @@ html, body {
 			border-radius: 99px;
 			transition: background 0.3s;
 		}
+	}
+}
+
+.x--desc {
+	position: fixed;
+	bottom: 5rem;
+	right: 5px;
+	width: 80vw;
+	background: rgba(43, 153, 225, .6);
+	border-radius: 5px;
+	padding: 14px;
+	color: #FFF;
+	h3 {
+		margin: 0;
+		font-size: 16px;
+		font-weight: normal;
+	}
+	p {
+		font-size: 14px;
+		margin: 0.5rem 0 0 0
 	}
 }

@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import { Button, NavBar, Popup, Sticky, Tabbar, TabbarItem, Toast } from 'vant';
+import { Button, NavBar, Popup, Sticky, Tabbar, TabbarItem, Toast, Icon } from 'vant';
 
 export default function useUi(app: App) {
     app.use(Button)
@@ -8,6 +8,7 @@ export default function useUi(app: App) {
         .use(Toast)
         .use(NavBar)
         .use(Popup)
+        .use(Icon)
         .use(Sticky)
     return app
 }

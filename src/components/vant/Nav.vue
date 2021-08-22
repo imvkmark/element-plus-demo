@@ -36,6 +36,11 @@ export default defineComponent({
                     isActive: false
                 },
                 {
+                    title: 'Javascript',
+                    name: 'js.home',
+                    isActive: false
+                },
+                {
                     title: 'Vue',
                     name: 'vue.home',
                     isActive: false
