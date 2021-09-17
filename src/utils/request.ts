@@ -1,68 +1,17 @@
 import axios, { AxiosInstance } from 'axios';
 import { appUrl, appVersion, storageKey } from '@/utils/conf';
 import { localStore } from '@/utils/utils';
-import { forEach, get, keys } from 'lodash-es';
-import { Toast } from 'vant';
+import { each, forEach, get, isNaN, isNil, isObject, keys, set, trim } from 'lodash-es';
 import { MD5 } from 'crypto-js';
-import { mockAll } from '@/mock';
-
-mockAll();
+import { store } from '@/store';
+import { ElMessage } from 'element-plus'
 
 // axios instance, 根据 MOCK 来设置 URL
+// 拦截器可以查看 : https://axios-http.com/zh/docs/interceptors
 const instance: AxiosInstance = axios.create({
-    baseURL: Boolean(import.meta.env.VITE_MOCK) ? '' : appUrl,
-    timeout: 10000 // 请求超时 20s
+    baseURL: appUrl,
+    timeout: 20000 // 请求超时 20s
 });
-
-// 请求前拦截
-instance.interceptors.request.use(
-    (config) => {
-        // 根据你的项目实际情况来对 config 做处理, 这里对 config 不做任何处理，直接返回
-        // requestCount为0，才创建loading, 避免重复创建
-        if (config && config.headers.isLoading !== false) {
-            // showLoading()
-        }
-        return config;
-    },
-    (err) => {
-        // 判断当前请求是否设置了不显示Loading
-        if (err && err.config.headers.isLoading !== false) {
-            // hideLoading()
-        }
-        return Promise.reject(err);
-    }
-);
-
-// 返回后拦截
-instance.interceptors.response.use(
-    (res) => {
-        // 根据你的项目实际情况来对 response 和 error 做处理 , 这里对 response 和 error 不做任何处理，直接返回
-        // 判断当前请求是否设置了不显示Loading
-        if (!res || res.config.headers.isLoading !== false) {
-            // hideLoading()
-        }
-        return res;
-    },
-    (err) => {
-        if (err.config.headers.isLoading !== false) {
-            // hideLoading()
-        }
-        if (err.message === 'Network Error') {
-            Toast('网络连接异常！')
-        }
-        if (err.code === 'ECONNABORTED') {
-            Toast('请求超时，请重试');
-        }
-        return Promise.reject(err);
-    }
-);
-
-type ReqOptions = {
-    method?: string,
-    url: string,
-    params?: any,
-    headers?: any
-}
 
 /**
  * 加密串生成
@@ -78,7 +27,11 @@ const requestSign = (params: any, token = '') => {
     arrKeys.sort();
     forEach(arrKeys, function (key) {
         if (key !== 'image' && key !== 'file') {
-            kvStr += key + '=' + params[key] + ','
+            if (isObject(params[key])) {
+                kvStr += key + '=' + JSON.stringify(params[key]) + ','
+            } else {
+                kvStr += key + '=' + params[key] + ','
+            }
         }
     });
     kvStr = kvStr.slice(0, -1);
@@ -91,22 +44,48 @@ const requestSign = (params: any, token = '') => {
 
 
 // 请求方法
-const fetch = (options: ReqOptions) => {
-    let { method = 'post', params = {}, url, headers = {} } = options;
+const fetch = (options: any) => {
+    let { method = 'post', params: oriParams = {}, url, headers = {}, from = 'app' } = options;
 
-    let token = localStore(storageKey.TOKEN);
-    if (params.token === 'false') {// api.joinRoom 加入房间: 区分首页从聊天室列表卡片(是以游客身份加入)
-        token = null;
-        delete params.token;
-    } else if (params.token) {
-        token = params.token;
-        delete params.token;
+    let params: any;
+    if (oriParams instanceof FormData) {
+        params = new FormData();
+        for (let pair of oriParams.entries()) {
+            if (isNil(pair[1])) {
+                return;
+            }
+            if (isNaN(pair[1])) {
+                return;
+            }
+            let sv = pair[1];
+            if (typeof pair[1] === 'string') {
+                sv = trim(pair[1]);
+            }
+            params.append(pair[0], sv);
+        }
+    } else {
+        params = {};
+        each(oriParams, function (val, key) {
+            if (isNil(val)) {
+                return;
+            }
+            if (isNaN(val)) {
+                return;
+            }
+            let sv = val;
+            if (typeof val === 'string') {
+                sv = trim(val);
+            }
+            set(params, key, sv);
+        })
     }
 
-    params.timestamp = Math.round(new Date().getTime() / 1000);
-    params.sign = requestSign(params, token ? token : '');
-    params.token = token || '';
 
+    let token = localStore(storageKey.TOKEN);
+    set(params, 'timestamp', Math.round(new Date().getTime() / 1000));
+    set(params, 'sign', requestSign(params, token ? token : ''));
+
+    console.info(options.url, params);
     // stip : 这里使用 data = {...params, token : token || ''}, 则会丢失form表单的数据
 
     let xApp = {
@@ -115,6 +94,7 @@ const fetch = (options: ReqOptions) => {
     }
     switch (method.toLowerCase()) {
         case 'get':
+            set(params, 'token', token ? token : '');
             instance.defaults.headers.get['X-APP'] = JSON.stringify(xApp);
             return instance.get(url, {
                 params
@@ -139,9 +119,10 @@ const fetch = (options: ReqOptions) => {
     }
 };
 
-export default function request(options: ReqOptions) {
+export default function request(options: any) {
     return fetch(options)
         .then((response) => {
+            store.dispatch('Loaded').then()
             const { data = {}, status, message } = response.data;
             console.info(options.url, status, message, response.data);
             if (status === 0) {
@@ -163,6 +144,7 @@ export default function request(options: ReqOptions) {
             }
         })
         .catch((error) => {
+            store.dispatch('Loaded').then()
             const { response } = error;
             let msg;
             if (response && response instanceof Object) {
@@ -170,15 +152,9 @@ export default function request(options: ReqOptions) {
                 msg = data.message || statusText;
 
                 if (code === 401) {
-                    // stip : 全局提醒, 可能需要产品介入
-                    Toast.fail('无权访问, 请登录后重试');
+                    store.dispatch('poppy/Logout').then();
 
-                    setTimeout(() => {
-                        // 清除token
-                        localStore(storageKey.TOKEN, null);
-                        // 跳转首页
-                        window.location.href = window.location.origin;
-                    }, 1500);
+                    ElMessage.warning('无权访问, 请登录后重试');
 
                     return Promise.resolve({
                         success: false,
@@ -193,7 +169,8 @@ export default function request(options: ReqOptions) {
                 } else {
                     msg = '错误码 = ' + code;
                 }
-                console.error(options.url, code, msg, response);
+                ElMessage.error(msg);
+                console.error(options.url, code, msg, response, error.toJSON());
                 return Promise.resolve({
                     success: false,
                     status: code,
@@ -202,7 +179,20 @@ export default function request(options: ReqOptions) {
                 });
             } else {
                 msg = error.message || '未知错误(一般是访问超时)';
-                console.error(options.url, 520, msg, error);
+                if (error.name === 'Error') {
+                    if (error.code === 'ECONNABORTED') {
+                        if (get(error, 'config.data') instanceof FormData) {
+                            msg = '上传超时，请检查网络或压缩图片上传';
+                        } else {
+                            msg = '请求超时，请检查网络或重试';
+                        }
+                    }
+                    if (error.message === 'Network Error') {
+                        msg = '网络连接异常！';
+                    }
+                }
+                ElMessage.error(msg);
+                console.error(options.url, 520, msg, error.toJSON());
                 return Promise.resolve({
                     success: false,
                     status: 520,
