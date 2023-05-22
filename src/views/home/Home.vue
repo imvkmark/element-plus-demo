@@ -1,42 +1,35 @@
 <template>
-    <div class="home-container">
-        <p>
-            <img class="logo" alt="Vue logo" src="@/assets/logo.png"/>
-        </p>
-        <p>
-            Vite2.x + Vue3.x + TypeScript + Vant3
-        </p>
-        <p>
-            IconFont
-            <icon-font type="icon-measure"/>
-            Antdv
-        </p>
-    </div>
-    <div class="x--list">
-        <p>
-            本项目基于 Vite / Vue3 / TypeScript / Vant3 的可以用于正式开发用的一个骨架
-        </p>
-    </div>
+    <ElRow>
+        <ElCol :span="24">
+            <div class="home-container">
+                <p>
+                    <img class="logo" alt="Vue logo" src="@/assets/logo.png"/>
+                </p>
+                <p>
+                    Vite4.x + Vue3.x + TypeScript + Element Plus 2.x
+                </p>
+                <p>
+                    IconFont
+                    <icon-font type="icon-tuichu"/>
+                </p>
+            </div>
+        </ElCol>
+    </ElRow>
+    <ElRow>
+        <ElCol :span="4" :sm="6">
+            <router-link :to="{name: 'data.image'}">Image 加载图片</router-link>
+        </ElCol>
+    </ElRow>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import IconFont from '@/components/core/IconFont';
-
-export default defineComponent({
-    name: 'Readme',
-    components: {
-        IconFont
-    }
-})
-</script>
+<script setup lang="ts">
+import IconFont from '@/components/core/IconFont';</script>
 
 <style scoped lang="less">
-@import '../../assets/less/vars.less';
 
 .home-container {
+    margin: 0 auto;
     text-align: center;
-    padding-top: 20px;
     .logo {
         width: 20%;
     }

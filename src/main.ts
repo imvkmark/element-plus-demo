@@ -1,15 +1,11 @@
 import { createApp } from 'vue'
-// vant base style
-import 'vant/lib/style/base.less';
-// ui @vant
-import useUi from '@/utils/use-ui'
-// route
 import router from '@/router/index'
-import { key, store } from '@/store'
 import App from './App.vue'
+import { createPinia } from 'pinia'
 
-
-const app = createApp(App)
-useUi(app)
+const app = createApp(App);
+const pinia = createPinia();
+app
     .use(router)
-    .use(store, key).mount('#app')
+    .use(pinia)
+    .mount('#app')

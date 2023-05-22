@@ -3,8 +3,8 @@ import { appUrl, appVersion, storageKey } from '@/utils/conf';
 import { localStore } from '@/utils/utils';
 import { each, forEach, get, isNaN, isNil, isObject, keys, set, trim } from 'lodash-es';
 import { MD5 } from 'crypto-js';
-import { store } from '@/store';
 import { ElMessage } from 'element-plus'
+import { usePoppyStore } from "@/store/poppy";
 
 // axios instance, 根据 MOCK 来设置 URL
 // 拦截器可以查看 : https://axios-http.com/zh/docs/interceptors
@@ -12,6 +12,9 @@ const instance: AxiosInstance = axios.create({
     baseURL: appUrl,
     timeout: 20000 // 请求超时 20s
 });
+
+
+const poppyStore = usePoppyStore();
 
 /**
  * 加密串生成
@@ -122,7 +125,7 @@ const fetch = (options: any) => {
 export default function request(options: any) {
     return fetch(options)
         .then((response) => {
-            store.dispatch('Loaded').then()
+            poppyStore.Loaded();
             const { data = {}, status, message } = response.data;
             console.info(options.url, status, message, response.data);
             if (status === 0) {
@@ -144,7 +147,7 @@ export default function request(options: any) {
             }
         })
         .catch((error) => {
-            store.dispatch('Loaded').then()
+            poppyStore.Loaded();
             const { response } = error;
             let msg;
             if (response && response instanceof Object) {
@@ -152,7 +155,7 @@ export default function request(options: any) {
                 msg = data.message || statusText;
 
                 if (code === 401) {
-                    store.dispatch('poppy/Logout').then();
+                    poppyStore.Logout();
 
                     ElMessage.warning('无权访问, 请登录后重试');
 

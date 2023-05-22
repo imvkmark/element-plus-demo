@@ -12,7 +12,7 @@ export default defineComponent({
 
 <style lang="less">
 @import "./assets/less/style.less";
-@import "node_modules/@popjs/util/dist/less/index";
+@import "node_modules/poppy-util/dist/less/index";
 
 #app {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -20,7 +20,5 @@ export default defineComponent({
     -moz-osx-font-smoothing: grayscale;
     box-sizing: border-box;
     position: relative;
-    width: 100%;
-    height: 100%;
 }
 </style>

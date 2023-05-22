@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import styleImport from 'vite-plugin-style-import'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver, VantResolver, } from 'unplugin-vue-components/resolvers'
 // 如果编辑器提示 path 模块找不到，则可以安装一下 @types/node -> yarn add @types/node -D
 import { resolve } from 'path'
 
@@ -13,16 +14,12 @@ export default defineConfig(({ mode }) => {
         envDir: './config/',
         plugins: [
             vue(),
-            // 按需载入 Vant
-            styleImport({
-                libs: [
-                    {
-                        libraryName: 'vant',
-                        esModule: true,
-                        resolveStyle: (name) => `vant/es/${name}/style`
-                    }
+            Components({
+                resolvers: [
+                    ElementPlusResolver(),
+                    VantResolver()
                 ]
-            })
+            }),
         ],
         resolve: {
             alias: {
@@ -31,9 +28,9 @@ export default defineConfig(({ mode }) => {
         },
         build: {
             // outDir: `./build/${mode}`
-            outDir: `./build/vue3`
+            outDir: `./build`
         },
-        base: '/vue3/',
+        base: '/',
         define: {
             'import.meta.env.DEF_APP_VERSION': JSON.stringify(pkgJson.version)
         },

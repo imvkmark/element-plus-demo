@@ -1,5 +1,5 @@
 <template>
-    <van-tabbar :fixed="true" safe-area-inset-bottom v-model="active">
+    <VanTabbar :fixed="true" safe-area-inset-bottom v-model="active">
         <van-tabbar-item
             :name="nav.name"
             v-for="(nav, index) in navList"
@@ -9,16 +9,18 @@
         >
             {{ nav.title }}
         </van-tabbar-item>
-    </van-tabbar>
+    </VanTabbar>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { NavItem } from '@/components/vant/types'
+import Vant from "@/layouts/Vant.vue";
 
 export default defineComponent({
     name: 'Nav',
+    components: { Vant },
 
     setup() {
         const router = useRouter()

@@ -1,63 +1,22 @@
 import { createRouter, createWebHashHistory, Router, RouteRecordRaw } from 'vue-router'
-import Vant from '@/layouts/Vant.vue';
-import Plain from '@/layouts/Plain.vue';
+import Plain from "@/layouts/Plain.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
-        component: Vant,
+        component: Plain,
         children: [
-            { path: '/', redirect: '/readme' },
-            { path: 'readme', component: () => import('@/views/home/Home.vue'), name: 'home.readme' },
-            { path: 'vue', component: () => import('@/views/vue/Vue.vue'), name: 'vue.home' },
-            { path: 'misc', component: () => import('@/views/misc/Misc.vue'), name: 'misc.home' },
-            { path: 'css', component: () => import('@/views/css/Css.vue'), name: 'css.home' },
-            { path: 'js', component: () => import('@/views/js/Js.vue'), name: 'js.home' },
-            { path: 'vant', component: () => import('@/views/vant/Vant.vue'), name: 'vant.home' }
+            { path: '/', component: () => import('@/views/home/Home.vue'), name: 'home.readme' },
+            { path: 'search', component: () => import('@/views/home/Search.vue'), name: 'home.search' }
         ]
     },
     {
-        path: '/vue',
+        path: '/data',
         component: Plain,
         children: [
-            { path: 'simple', component: () => import('@/views/vue/Simple.vue'), name: 'vue.simple' },
-            { path: 'vuex', component: () => import('@/views/vue/Vuex.vue'), name: 'vue.vuex' }
+            { path: 'image', component: () => import('@/views/data/Image.vue'), name: 'data.image' },
         ]
     },
-    {
-        path: '/misc',
-        component: Plain,
-        children: [
-
-            { path: 'request', component: () => import('@/views/misc/Request.vue'), name: 'misc.request' }
-        ]
-    },
-    {
-        path: '/css',
-        component: Plain,
-        children: [
-            // { path: 'scroll', component: () => import('@/views/css/Scroll.vue'), name: 'css.scroll' }
-        ]
-    },
-    {
-        path: '/js',
-        component: Plain,
-        children: [
-
-            { path: 'scroll', component: () => import('@/views/js/Scroll.vue'), name: 'js.scroll' }
-        ]
-    },
-    {
-        path: '/vant',
-        component: Plain,
-        children: [
-            // 懒加载
-
-            { path: 'element', component: () => import('@/views/vant/Element.vue'), name: 'vant.element' },
-            { path: 'children', component: () => import('@/views/vant/Children.vue'), name: 'vant.children' },
-            { path: 'parent', component: () => import('@/views/vant/Parent.vue'), name: 'vant.parent' }
-        ]
-    }
 ]
 
 const router: Router = createRouter({

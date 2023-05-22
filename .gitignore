@@ -53,3 +53,5 @@ config/.env
 config/.env.*.local
 config/.env.*
 !config/.env.sample
+components.d.ts
+pnpm-lock.yaml

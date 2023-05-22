@@ -1,4 +1,4 @@
-import {createFromIconfontCN} from '@ant-design/icons-vue'
+import { createFromIconfontCN } from '@ant-design/icons-vue'
 
 /**
  * 封装 IconFont Url
@@ -7,6 +7,6 @@ import {createFromIconfontCN} from '@ant-design/icons-vue'
 
 let iconUrl = import.meta.env.VITE_ICON_URL;
 const IconFont = createFromIconfontCN({
-    scriptUrl: String(iconUrl),
+    scriptUrl: String(iconUrl ? iconUrl : '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js'),
 });
 export default IconFont;
